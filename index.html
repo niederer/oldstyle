@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple Map</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+      var map;
+      var chiLatLong;
+      var marker;
+      var kdugLatLong;
+
+      function initMap() {
+        chiLatLong = { lat: 41.8781, lng: -87.6898 };
+        kdugLatLong = { lat: 41.9762174, lng: -87.6777082 };
+
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: chiLatLong,
+          zoom: 12
+        });
+
+        var contentString = '<div id="content"><div id="bodyContent"><span>K&#x0027;s Dugout</span></div></div>';
+
+        var infoWindow = new google.maps.InfoWindow({
+          content: contentString
+        });
+
+        marker = new google.maps.Marker({
+          position: kdugLatLong,
+          map: map,
+          animation: google.maps.Animation.DROP,
+          title: "K's Dugout"
+        });
+
+        marker.addListener('click', function() {
+          infoWindow.open(map, marker);
+        })
+      }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=[KEYHERE]&callback=initMap"
+    async defer></script>
+  </body>
+</html>
